@@ -25,6 +25,8 @@ const Header = () => {
             {darkMode ? 'Light' : 'Dark'}
           </button>
         </div>
+
+        {/* TODO: na mobile powinien być hamburger */}
         <nav className="flex space-x-3">
           <Link
             to="/favourites"

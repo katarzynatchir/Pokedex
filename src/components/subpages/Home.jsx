@@ -48,7 +48,7 @@ const Home = () => {
         ))} */}
 
         {paginatedPokemons.map(pokemon => (
-          <PokemonCard key={pokemon.id} pokemonUrl={pokemon.url} />
+          <PokemonCard key={pokemon.url} pokemonUrl={pokemon.url} />
         ))}
       </section>
       <Pagination

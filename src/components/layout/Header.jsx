@@ -17,7 +17,7 @@ const Header = () => {
         <div className="flex justify-end items-center space-x-6 mb-4">
           {/* tutaj dodać jak zrobię Logowanie: */}
           <p>Witaj, Stefan!</p>
-          {/* wynieść do nowego komponentu przełącznik toggleDarkMode i dodać ikony!! */}
+          {/* TODO wynieść do nowego komponentu przełącznik toggleDarkMode i dodać ikony!! */}
           <button
             onClick={toggleDarkMode}
             className="w-12 h-12 bg-neutral-900 dark:bg-white  rounded-full text-white dark:text-black font-semibold text-sm cursor-pointer"
@@ -30,15 +30,27 @@ const Header = () => {
         <nav className="flex space-x-3">
           <Link
             to="/favourites"
-            className="text-white bg-pokeblue-500 px-4 py-2 rounded-sm"
+            className="text-white bg-pokeblue-500 hover:bg-pokeblue-700 transition-colors duration-300 px-4 py-2 rounded-sm"
           >
             Ulubione
           </Link>
           <Link
             to="/arena"
-            className="text-white bg-pokeblue-500 px-4 py-2 rounded-sm"
+            className="text-white bg-pokeblue-500 hover:bg-pokeblue-700 transition-colors duration-300 px-4 py-2 rounded-sm"
           >
             Arena
+          </Link>
+          <Link
+            to="/register"
+            className="text-white bg-pokeblue-500 hover:bg-pokeblue-700 transition-colors duration-300 px-4 py-2 rounded-sm"
+          >
+            Rejestracja
+          </Link>
+          <Link
+            to="/login"
+            className="text-white bg-pokeblue-500 hover:bg-pokeblue-700 transition-colors duration-300 px-4 py-2 rounded-sm"
+          >
+            Logowanie
           </Link>
 
           {/* tutaj dodać więcej jak zrobię logowanie */}

@@ -2,24 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --pokeblue-500: #2c6bb2;
-}
-
 @theme {
-  --pokeblue-500: #2c6bb2;
-  --pokeblue-600: #2962a3;
-  --pokeblue-700: #255893;
-}
-.bg-pokeblue-500 {
-  background-color: var(--pokeblue-500);
-}
-.text-pokeblue-500 {
-  color: var(--pokeblue-500);
-}
-.bg-pokeblue-700 {
-  background-color: var(--pokeblue-700);
-}
-.text-pokeblue-700 {
-  color: var(--pokeblue-700);
+  --color-pokeblue-500: #2c6bb2;
+  --color-pokeblue-700: #255893;
 }

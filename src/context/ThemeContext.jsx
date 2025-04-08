@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react';
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
@@ -11,12 +10,15 @@ export const ThemeProvider = ({ children }) => {
   const toggleDarkMode = () => {
     const root = document.documentElement;
 
+    setDarkMode(!darkMode);
+
+    localStorage.setItem('theme', !darkMode);
+
     if (darkMode) {
       root.classList.remove('dark');
     } else {
       root.classList.add('dark');
     }
-    setDarkMode(!darkMode);
   };
 
   return (

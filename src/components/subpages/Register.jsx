@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
+// TODO zrobić nowy folder validate i tam przeniść schema
 const schema = z
   .object({
     name: z.string().min(3, 'Imię musi mieć minimum 3 znaki'),
@@ -23,7 +24,6 @@ const schema = z
   });
 
 const Register = () => {
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -36,13 +36,13 @@ const Register = () => {
   });
 
   const onSubmit = async data => {
-    console.log(data);
     try {
       //czy użytknik istnieje?
-      const res = await fetch(
+      const response = await fetch(
         `http://localhost:3000/users?email=${data.email}`
       );
-      const existingUsers = await res.json();
+      const existingUsers = await response.json();
+      console.log('existingUsers', existingUsers);
 
       if (existingUsers.length > 0) {
         enqueueSnackbar('Użytkownik o podanym emailu już istnieje', {
@@ -57,33 +57,26 @@ const Register = () => {
         password: data.password,
       };
 
-      const createRes = await fetch(`http://localhost:3000/users`, {
+      const createUser = await fetch(`http://localhost:3000/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser),
       });
 
-      if (!createRes.ok) {
+      if (!createUser.ok) {
         throw new Error('Błąd przy rejestracji użytkownika');
       }
 
       enqueueSnackbar('Zarejestrowano pomyślnie!', { variant: 'success' });
-      setRedirectToLogin(true);
+
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
     } catch (error) {
       console.error(error);
       enqueueSnackbar('Coś poszło nie tak 😓', { variant: 'error' });
     }
   };
-
-  useEffect(() => {
-    if (redirectToLogin) {
-      const timeout = setTimeout(() => {
-        navigate('/login');
-      }, 5000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [redirectToLogin, navigate]);
 
   return (
     <>

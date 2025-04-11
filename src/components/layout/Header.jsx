@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../../context/ThemeContext';
 import { LoginContext } from '../../context/LoginContext';
 import { useSnackbar } from 'notistack';
+import ToggleThemeMode from '../shared/ToggleThemeMode';
 
 const Header = () => {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const { userLoggedIn, setUserLoggedIn } = useContext(LoginContext);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -19,20 +18,13 @@ const Header = () => {
       </Link>
       <div className="flex flex-col items-end">
         <div className="flex justify-end items-center space-x-6 mb-4">
-          {/* tutaj dodać jak zrobię Logowanie: */}
           {userLoggedIn ? (
             <p>Witaj, {userLoggedIn.name}!</p>
           ) : (
             <p>Witaj, nieznajomy!</p>
           )}
 
-          {/* TODO wynieść do nowego komponentu przełącznik toggleDarkMode i dodać ikony!! + Zrobić LocalStorage do sesji */}
-          <button
-            onClick={toggleDarkMode}
-            className="w-12 h-12 bg-neutral-900 dark:bg-white  rounded-full text-white dark:text-black font-semibold text-sm cursor-pointer"
-          >
-            {darkMode ? 'Light' : 'Dark'}
-          </button>
+          <ToggleThemeMode />
         </div>
 
         {/* TODO: na mobile powinien być hamburger */}
@@ -78,10 +70,6 @@ const Header = () => {
               </Link>
             </>
           )}
-
-          {/* tutaj dodać więcej jak zrobię logowanie */}
-          {/* Rejestracja, Logowanie -> gdy niezalogowany
-          WYloguj -> Gdy zalogowany */}
 
           {/* PAMIĘTAJ o zablokowaniu przejścia pod adresy dla nizalogowanego użytkownika: Ulubione, Arena, Ranking, Edycja */}
         </nav>

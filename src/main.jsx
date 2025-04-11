@@ -25,3 +25,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+// Dlaczego dałam do main?
+// Co robi main.jsx w Vite?
+
+// To jest entry point całej aplikacji – wszystko, co owijasz tam w ReactDOM.createRoot, będzie dostępne wszędzie.
+// Dlaczego dajemy tam:
+
+//     BrowserRouter – bo routing dotyczy całej aplikacji
+
+//     ThemeProvider – bo temat dotyczy całej aplikacji
+
+//     (czasem) QueryClientProvider, AuthProvider, LocalizationProvider, itd.

@@ -10,11 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUserLoggedIn } = useContext(LoginContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }, //tutaj chyba niepotrzebne, bo nie robię walidacji???
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async data => {
     try {
@@ -43,12 +39,11 @@ const Login = () => {
       enqueueSnackbar(`Witaj ponownie, ${user.name}!`, { variant: 'success' });
 
       setUserLoggedIn(user); //zapisuję usera do contextu - dzięki temu pobiorę jego imię do headera
+      console.log(user);
 
       localStorage.setItem('loggedUser', JSON.stringify(user));
 
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      navigate('/');
     } catch (error) {
       console.log(error);
       enqueueSnackbar('Coś poszło nie tak.', { variant: 'error' });

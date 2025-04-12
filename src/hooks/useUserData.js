@@ -7,6 +7,7 @@ export const useUserData = userId => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //Pobieram wszystkie dane użytkownika
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);
@@ -29,9 +30,48 @@ export const useUserData = userId => {
     userId && fetchUserData();
   }, [userId]);
 
+  //tablica z Id ulubionych pokemonów
   const getFavourites = () => {
     return userData?.favourites || [];
   };
 
-  return { userData, isLoading, error, getFavourites };
+  //sprawdzenie czy Pokemon jest już w ulubionych
+  const isFavourite = pokemonId => {
+    const favs = getFavourites();
+    return favs.includes(pokemonId);
+    //dostanę odpowiedź true lub false
+  };
+
+  //dodawanie pokemona do ulubionych
+  const addFavourite = async pokemonId => {
+    try {
+      if (!userData) return;
+
+      const updatedFavourites = [...(userData.favourites || []), pokemonId];
+
+      const response = await fetch(`${API_URL}/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favourites: updatedFavourites }),
+      });
+
+      if (!response.ok) throw new Error('Nie udało się dodać do ulubionych');
+
+      //stan lokalny:
+      setUserData(prev => ({ ...prev, favourites: updatedFavourites }));
+    } catch (err) {
+      console.error('Błąd przy dodawaniu do ulubionych:', err.message);
+    }
+  };
+
+  return {
+    userData,
+    isLoading,
+    error,
+    getFavourites,
+    isFavourite,
+    addFavourite,
+  };
 };

@@ -30,7 +30,11 @@
           "experience": 105
         }
       ],
-      "favourites": [1, 4, 10001],
+      "favourites": [
+        1,
+        4,
+        10001
+      ],
       "arena": [
         {
           "id": 1,
@@ -69,7 +73,20 @@
       "password": "Zxc1234%",
       "customPokemons": [],
       "editedPokemons": [],
-      "favourites": [1, 4, 8],
+      "favourites": [
+        1,
+        4,
+        8,
+        7,
+        12,
+        11,
+        13,
+        10,
+        15,
+        2,
+        3,
+        5
+      ],
       "arena": [],
       "battles": []
     }

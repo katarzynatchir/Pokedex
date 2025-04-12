@@ -3,20 +3,12 @@ import PokemonCard from '../shared/PokemonCard';
 import SearchBar from '../shared/SearchBar';
 import Pagination from '../shared/Pagination';
 import { useAllPokemonData } from '../../hooks/useAllPokemonData';
-import { LoginContext } from '../../context/LoginContext';
-import { useUserData } from '../../hooks/useUserData';
+// import { LoginContext } from '../../context/LoginContext';
 
 const ITEMS_PER_PAGE = 15;
 
 const Home = () => {
-  const { userLoggedIn } = useContext(LoginContext);
-  const { userData, getFavourites } = useUserData(userLoggedIn?.id);
-
-  console.log('userData z hooka:', userData); //sprawdzenie czy user się pobiera poprawnie
-
-  //sprawdzenie czy działą getFavourities
-  const favs = getFavourites();
-  console.log('Ulubione pokemony:', favs);
+  // const { userLoggedIn } = useContext(LoginContext);
 
   const { pokemonList, isLoading, error } = useAllPokemonData();
 
@@ -48,6 +40,7 @@ const Home = () => {
       <section>
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </section>
+      {/* test czy dodaje do ulbionych */}
 
       <section className="flex flex-wrap justify-center gap-8">
         {/* Jak starczy czasu zrobić komponent z ładnym loaderem */}

@@ -14,16 +14,17 @@ export const useAllPokemonData = () => {
 
       try {
         const response = await fetch(API_URL);
+
         if (!response.ok)
           throw new Error('Błąd podczas pobierania listy Pokemonów');
 
         const data = await response.json();
-        console.log('data:', data);
+        // console.log('data:', data);
 
         //wyciągam tylko results:
         // [{name, url}, {name, url}, ...]
         const basicList = data.results;
-        console.log('basicList:', basicList);
+        // console.log('basicList:', basicList);
         //zrobić Promise.all
 
         const detailedRequests = basicList.map(async pokemon => {
@@ -41,9 +42,10 @@ export const useAllPokemonData = () => {
         const fullData = await Promise.all(detailedRequests);
         // const fullDataRaw = await Promise.all(detailedRequests);
         // const fullData = fullDataRaw.filter(Boolean); // usuń null'e
+
         setPokemonList(fullData);
 
-        console.log('fullData:', fullData);
+        // console.log('fullData:', fullData);
       } catch (err) {
         setError(err.message);
       } finally {

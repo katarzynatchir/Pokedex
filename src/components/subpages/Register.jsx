@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 // TODO zrobić nowy folder validate i tam przeniść schema
@@ -25,7 +24,6 @@ const schema = z
 
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -55,6 +53,12 @@ const Register = () => {
         name: data.name,
         email: data.email,
         password: data.password,
+        //tutaj tworzę strukturę pod przyszłe dane ściągane z inncy funkcjonalności:
+        customPokemons: [],
+        editedPokemons: [],
+        favourites: [],
+        arena: [],
+        battles: [],
       };
 
       const createUser = await fetch(`http://localhost:3000/users`, {
@@ -68,10 +72,6 @@ const Register = () => {
       }
 
       enqueueSnackbar('Zarejestrowano pomyślnie!', { variant: 'success' });
-
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
     } catch (error) {
       console.error(error);
       enqueueSnackbar('Coś poszło nie tak 😓', { variant: 'error' });

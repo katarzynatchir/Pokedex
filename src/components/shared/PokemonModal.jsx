@@ -13,9 +13,10 @@ const PokemonModal = ({
   weight,
   experience,
   abilities,
+  isOpen,
 }) => {
   return (
-    <Modal isOpen={true} onClose={handleCloseModal}>
+    <Modal isOpen={isOpen} onClose={handleCloseModal}>
       <div className="p-3 flex flex-col sm:flex-row items-center">
         <img src={imgUrl} alt={name} className="w-24 object-contain" />
         <div className="flex flex-col items-center">
@@ -30,9 +31,9 @@ const PokemonModal = ({
       </div>
 
       <div className="absolute top-2 left-2 flex gap-1">
-        <img src={heart} className="cursor-pointer" />
-        <img src={heartRed} className="cursor-pointer" />
-        <img src={sword} className="cursor-pointer" />
+        <img src={heart} className="cursor-pointer w-6 h-6" />
+        <img src={heartRed} className="cursor-pointer  w-6 h-6" />
+        <img src={sword} className="cursor-pointer w-6 h-6" />
         <span>(0/2)</span>
       </div>
 

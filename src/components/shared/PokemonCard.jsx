@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import { useFetch } from '../../hooks/useFetch';
+// import { useFetch } from '../../hooks/useFetch';
 import PokemonModal from './PokemonModal';
 import PokemonFeatures from './PokemonFeatures';
 import { capitalize, formatAbilities } from '../../utils/format';
 
-const PokemonCard = ({ pokemonUrl }) => {
-  const { data, isLoading, error } = useFetch(pokemonUrl);
+const PokemonCard = ({ pokemon }) => {
+  // const { data, isLoading, error } = useFetch(pokemonUrl);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // TODO: zrobić komponenty Loader i Error
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!data) return null; // Na wypadek, gdyby data była nadal null
+  // // TODO: zrobić komponenty Loader i Error
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
+  // if (!data) return null; // Na wypadek, gdyby data była nadal null
 
   //Nazwa z dużej litery - sprawdź czy jest inny sposób??
-  //jeżeli będzie e innych komponentach to wyodrębnić -> utils? - chyba OK
+  //jeżeli będzie w innych komponentach to wyodrębnić -> utils? - chyba OK
 
   const pokemonData = {
-    id: data.id,
+    id: pokemon.id,
     // name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-    name: capitalize(data.name),
-    imgUrl: data.sprites.front_default,
-    height: data.height,
-    weight: data.weight,
-    experience: data.base_experience,
-    abilities: formatAbilities(data.abilities),
+    name: capitalize(pokemon.name),
+    imgUrl: pokemon.sprites.front_default,
+    height: pokemon.height,
+    weight: pokemon.weight,
+    experience: pokemon.base_experience,
+    abilities: formatAbilities(pokemon.abilities),
   };
 
   return (
@@ -51,12 +51,22 @@ const PokemonCard = ({ pokemonUrl }) => {
       </div>
 
       {/* Pokemon Modal */}
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <PokemonModal
+          isOpen={isModalOpen}
           handleCloseModal={() => setIsModalOpen(false)}
           {...pokemonData}
         />
-      )}
+      )} TO JEST ŹLE , bo  PokemonModal tworzy się dopiero wtedy, kiedy isModalOpen === true
+
+czyli: jak zamknię modal ( isModalOpen na false) → komponent zostaje odmontowany
+i następnym razem znowu tworzy się od zera więc mam problem z modalem zamykanym przy obsłudze np. favourities*/}
+
+      <PokemonModal
+        isOpen={isModalOpen}
+        handleCloseModal={() => setIsModalOpen(false)}
+        {...pokemonData}
+      />
     </>
   );
 };

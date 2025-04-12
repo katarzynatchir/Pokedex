@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { useFetch } from '../../hooks/useFetch';
+import React, { useContext, useState } from 'react';
 import PokemonCard from '../shared/PokemonCard';
 import SearchBar from '../shared/SearchBar';
 import Pagination from '../shared/Pagination';
+import { useAllPokemonData } from '../../hooks/useAllPokemonData';
+import { LoginContext } from '../../context/LoginContext';
+import { useUserData } from '../../hooks/useUserData';
 
-const POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 const ITEMS_PER_PAGE = 15;
 
 const Home = () => {
-  const { data, isLoading, error } = useFetch(POKEMON_URL);
+  const { userLoggedIn } = useContext(LoginContext);
+  const { userData, getFavourites } = useUserData(userLoggedIn?.id);
+
+  console.log('userData z hooka:', userData); //sprawdzenie czy user się pobiera poprawnie
+
+  //sprawdzenie czy działą getFavourities
+  const favs = getFavourites();
+  console.log('Ulubione pokemony:', favs);
+
+  const { pokemonList, isLoading, error } = useAllPokemonData();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const pokemons = data?.results || [];
+  // const pokemons = data?.results || [];
 
-  const filtered = pokemons.filter(pokemon =>
+  const filtered = pokemonList.filter(pokemon =>
     pokemon.name.includes(searchTerm.toLowerCase())
   );
 
@@ -48,7 +59,7 @@ const Home = () => {
         ))} */}
 
         {paginatedPokemons.map(pokemon => (
-          <PokemonCard key={pokemon.url} pokemonUrl={pokemon.url} />
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </section>
       <Pagination
@@ -56,19 +67,6 @@ const Home = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      {/* <section className="flex justify-center gap-2 mt-4">
-        {Array.from({ length: totalPages }, (el, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentPage(i + 1)}
-            className={`px-3 py-1 border rounded-full cursor-pointer ${
-              currentPage === i + 1 ? 'bg-blue-500 text-white' : ''
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </section> */}
     </div>
   );
 };

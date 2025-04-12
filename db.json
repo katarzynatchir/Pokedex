@@ -3,8 +3,75 @@
     {
       "id": "7c09",
       "name": "Kasia",
+      "email": "kasia@gmail.com",
+      "password": "TajneHaslo123",
+      "customPokemons": [
+        {
+          "id": 10001,
+          "name": "Dragorina",
+          "imgUrl": "https://example.com/dragorina.png",
+          "height": 12,
+          "weight": 500,
+          "experience": 150,
+          "abilities": "fire-boost"
+        }
+      ],
+      "editedPokemons": [
+        {
+          "id": 1,
+          "height": 10,
+          "weight": 70,
+          "experience": 90
+        },
+        {
+          "id": 4,
+          "height": 6,
+          "weight": 90,
+          "experience": 105
+        }
+      ],
+      "favourites": [1, 4, 10001],
+      "arena": [
+        {
+          "id": 1,
+          "name": "Bulbasaur",
+          "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+          "experience": 90,
+          "weight": 70
+        },
+        {
+          "id": 10001,
+          "name": "Dragorina",
+          "imgUrl": "https://example.com/dragorina.png",
+          "experience": 150,
+          "weight": 500
+        }
+      ],
+      "battles": [
+        {
+          "id": 1,
+          "win": 2,
+          "lose": 1,
+          "baseExperience": 90
+        },
+        {
+          "id": 10001,
+          "win": 1,
+          "lose": 0,
+          "baseExperience": 160
+        }
+      ]
+    },
+    {
+      "id": "596e",
+      "name": "Katarzyna",
       "email": "tchir.katarzyna@gmail.com",
-      "password": "Kasia1212i#"
+      "password": "Zxc1234%",
+      "customPokemons": [],
+      "editedPokemons": [],
+      "favourites": [1, 4, 8],
+      "arena": [],
+      "battles": []
     }
   ]
 }

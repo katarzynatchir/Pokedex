@@ -31,9 +31,8 @@
         }
       ],
       "favourites": [
-        1,
-        4,
-        10001
+        10001,
+        1
       ],
       "arena": [
         {
@@ -74,18 +73,9 @@
       "customPokemons": [],
       "editedPokemons": [],
       "favourites": [
-        1,
         4,
-        8,
-        7,
-        12,
-        11,
-        13,
-        10,
-        15,
-        2,
         3,
-        5
+        1
       ],
       "arena": [],
       "battles": []

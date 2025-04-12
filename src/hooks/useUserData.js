@@ -66,6 +66,33 @@ export const useUserData = userId => {
     }
   };
 
+  //uswuwanie pokemona z ulubionych
+  const removeFavourite = async pokemonId => {
+    try {
+      if (!userData) return;
+
+      const updatedFavourites = (userData.favourites || []).filter(
+        id => id !== pokemonId
+      );
+
+      const response = await fetch(`${API_URL}/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favourites: updatedFavourites }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Nie udało się usunąć z ulubionych');
+      }
+
+      setUserData(prev => ({ ...prev, favourites: updatedFavourites }));
+    } catch (err) {
+      console.error('Błąd przy usuwaniu z ulubionych:', err.message);
+    }
+  };
+
   return {
     userData,
     isLoading,
@@ -73,5 +100,6 @@ export const useUserData = userId => {
     getFavourites,
     isFavourite,
     addFavourite,
+    removeFavourite,
   };
 };

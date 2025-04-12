@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-// import { useFetch } from '../../hooks/useFetch';
 import PokemonModal from './PokemonModal';
 import PokemonFeatures from './PokemonFeatures';
 import { capitalize, formatAbilities } from '../../utils/format';
 
 const PokemonCard = ({ pokemon }) => {
-  // const { data, isLoading, error } = useFetch(pokemonUrl);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // // TODO: zrobić komponenty Loader i Error
-  // if (isLoading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
-  // if (!data) return null; // Na wypadek, gdyby data była nadal null
 
   //Nazwa z dużej litery - sprawdź czy jest inny sposób??
   //jeżeli będzie w innych komponentach to wyodrębnić -> utils? - chyba OK
 
   const pokemonData = {
     id: pokemon.id,
-    // name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
     name: capitalize(pokemon.name),
     imgUrl: pokemon.sprites.front_default,
     height: pokemon.height,

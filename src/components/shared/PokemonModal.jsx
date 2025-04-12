@@ -1,12 +1,14 @@
 import React from 'react';
 import Modal from './Modal';
 import PokemonFeatures from './PokemonFeatures';
-import heart from '../../icons/heart-white.webp';
-import heartRed from '../../icons/heart-red.webp';
-import sword from '../../icons/sword.webp';
+import { useUserData } from '../../hooks/useUserData';
+import { LoginContext } from '../../context/LoginContext';
+import { useContext } from 'react';
+import { RiHeartFill, RiSwordFill } from '@remixicon/react';
 
 const PokemonModal = ({
   handleCloseModal,
+  id,
   name,
   imgUrl,
   height,
@@ -15,6 +17,20 @@ const PokemonModal = ({
   abilities,
   isOpen,
 }) => {
+  const { userLoggedIn } = useContext(LoginContext);
+  const userId = userLoggedIn?.id;
+  const { isFavourite, addFavourite, removeFavourite } = useUserData(userId);
+
+  const handleFavouriteClick = () => {
+    if (!userId) return;
+
+    if (isFavourite(id)) {
+      removeFavourite(id);
+    } else {
+      addFavourite(id);
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={handleCloseModal}>
       <div className="p-3 flex flex-col sm:flex-row items-center">
@@ -31,10 +47,37 @@ const PokemonModal = ({
       </div>
 
       <div className="absolute top-2 left-2 flex gap-1">
-        <img src={heart} className="cursor-pointer w-6 h-6" />
-        <img src={heartRed} className="cursor-pointer  w-6 h-6" />
-        <img src={sword} className="cursor-pointer w-6 h-6" />
-        <span>(0/2)</span>
+        {userId &&
+          (isFavourite(id) ? (
+            <RiHeartFill
+              className="cursor-pointer"
+              size={24}
+              color="red"
+              stroke="black"
+              onClick={handleFavouriteClick}
+            />
+          ) : (
+            <RiHeartFill
+              className="cursor-pointer"
+              size={24}
+              color="white"
+              stroke="black"
+              onClick={handleFavouriteClick}
+            />
+          ))}
+        {userId && (
+          <>
+            <RiSwordFill
+              className="cursor-pointer"
+              size={24}
+              color="white"
+              stroke="black"
+            />
+            <span className="text-sm text-neutral-800 dark:text-neutral-200">
+              (0/2)
+            </span>
+          </>
+        )}
       </div>
 
       <button
